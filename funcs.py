@@ -313,11 +313,11 @@ def train_snn2(large_model, small_model, device, train_loader, test_loader, crit
         train_samples = 0
         for frame, label in train_loader:
             optimizer.zero_grad()
-            frame1=add_dimention(frame,T=1)
-            frame1 = frame1.float().to(device)
-            frame2=add_dimention(frame,T=4)
-            frame2 = frame2.float().to(device)
-            #frame = frame.float().to(device)
+            # frame1=add_dimention(frame,T=1)
+            # frame1 = frame1.float().to(device)
+            # frame2=add_dimention(frame,T=4)
+            # frame2 = frame2.float().to(device)
+            frame = frame.float().to(device)
             label = label.to(device)
             with torch.no_grad():
                 teacher_output = large_model(frame).mean(0)
@@ -344,9 +344,9 @@ def train_snn2(large_model, small_model, device, train_loader, test_loader, crit
         test_samples = 0
         with torch.no_grad():
             for frame, label in test_loader:
-                frame2 = add_dimention(frame, T=4)
-                frame2 = frame2.float().to(device)
-                #frame = frame.float().to(device)
+                # frame2 = add_dimention(frame, T=4)
+                # frame2 = frame2.float().to(device)
+                frame = frame.float().to(device)
                 label = label.to(device)
                 out_fr = small_model(frame).mean(0)
                 # loss = F.mse_loss(out_fr, label_onehot)
